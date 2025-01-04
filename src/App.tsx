@@ -1,17 +1,18 @@
-
-import Footer from "./layout/Footer"
-import Navbar from "./layout/Navbar"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
+import RootLayout from "./layout/RootLayout"
+import AccountDetails from "./pages/AccountDetails"
 const App = () => {
   return (
     <>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <Navbar />
-        <main className="flex-grow pt-20">
-          <Dashboard />
-        </main>
-        <Footer />
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<RootLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="profile" element={<AccountDetails />} />
+          </Route>
+        </Routes>
+      </Router>
     </>
   )
 }

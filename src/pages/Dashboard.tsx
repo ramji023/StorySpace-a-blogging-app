@@ -1,6 +1,6 @@
-import Box from "../components/Box"
-import RecommendTopics from "../components/RecommendTopics"
-import SuggestedUser from "../components/SuggestedUser"
+import Box from "../components/dashboard/Box"
+import RecommendTopics from "../components/dashboard/RecommendTopics"
+import SuggestedUser from "../components/dashboard/SuggestedUser"
 
 const sampleBlogs = [{
     title: "The Future of Web Development: What's Next?",
