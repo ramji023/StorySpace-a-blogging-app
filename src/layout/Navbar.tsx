@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import { Search, PenSquare, User } from 'lucide-react';
-
 const Navbar = () => {
     return (
         <>
@@ -26,10 +26,10 @@ const Navbar = () => {
 
                     {/* Right Side Actions */}
                     <div className="flex items-center space-x-6">
-                        <button className="flex items-center space-x-1 text-gray-700 hover:text-purple-600 transition-colors">
+                        <Link to="write-story" className="flex items-center space-x-1 text-gray-700 hover:text-purple-600 transition-colors">
                             <PenSquare className="h-5 w-5" />
                             <span>Write</span>
-                        </button>
+                        </Link>
 
                         <div className="flex items-center space-x-4">
                             <button className="text-gray-700 hover:text-purple-600 font-medium">
