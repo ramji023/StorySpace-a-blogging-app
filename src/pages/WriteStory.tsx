@@ -27,7 +27,6 @@ const WriteStory = () => {
     const handleSave = () => {
         console.log("Title:", title);
         console.log("Content:", content);
-        // Implement server-side saving logic here
     };
 
     // Configuration for Quill editor
