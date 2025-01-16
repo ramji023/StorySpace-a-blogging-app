@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Search, PenSquare, User } from 'lucide-react';
+import { AuthContext } from '../context/auth/AuthContext';
+import { useContext } from 'react';
 const Navbar = () => {
+    const { user } = useContext(AuthContext);
     return (
         <>
             <nav className="bg-white shadow-md px-4 py-3 fixed w-full top-0 z-50">
@@ -26,21 +29,20 @@ const Navbar = () => {
 
                     {/* Right Side Actions */}
                     <div className="flex items-center space-x-6">
-                        <Link to="write-story" className="flex items-center space-x-1 text-gray-700 hover:text-purple-600 transition-colors">
+                        <Link to="write-story" className="flex items-center space-x-1 text-gray-700 hover:text-purple-600 transition-colors ">
                             <PenSquare className="h-5 w-5" />
                             <span>Write</span>
                         </Link>
 
                         <div className="flex items-center space-x-4">
-                            <button className="text-gray-700 hover:text-purple-600 font-medium">
+                            {user?.isAuthenticated ? (<button className="text-gray-700 hover:text-purple-600">
+                                <User className="h-6 w-6" />
+                            </button>) : (<><button className="text-gray-700 hover:text-purple-600 font-medium">
                                 Login
                             </button>
-                            <button className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
-                                Sign up
-                            </button>
-                            <button className="text-gray-700 hover:text-purple-600">
-                                <User className="h-6 w-6" />
-                            </button>
+                                <button className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
+                                    Sign up
+                                </button></>)}
                         </div>
                     </div>
                 </div>

@@ -5,20 +5,23 @@ import AccountDetails from "./pages/AccountDetails"
 import WriteStory from "./pages/WriteStory"
 import WatchStory from "./pages/WatchStory"
 import SignUp from "./pages/auth/Signup"
+import { AuthProvider } from "./context/auth/AuthContext"
 const App = () => {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<RootLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="profile" element={<AccountDetails />} />
-            <Route path="write-story" element={<WriteStory />} />
-            <Route path="watch-story" element={<WatchStory/>} /> 
-            <Route path="signup" element={<SignUp/>} />   
-          </Route>
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<RootLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="profile" element={<AccountDetails />} />
+              <Route path="write-story" element={<WriteStory />} />
+              <Route path="watch-story" element={<WatchStory />} />
+              <Route path="signup" element={<SignUp />} />
+            </Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
     </>
   )
 }
