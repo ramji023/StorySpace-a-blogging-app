@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState,useContext } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 // first create the context
 interface User {
@@ -14,14 +14,13 @@ export const AuthContext = createContext<authContextType | null>(null);
 
 
 
-
 // define context provider
 interface authProviderProps {
     children: ReactNode,
 }
 export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User>({
-        isAuthenticated: true,
+        isAuthenticated: false,
         username: '',
     })
 

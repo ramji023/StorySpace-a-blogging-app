@@ -37,12 +37,9 @@ const Navbar = () => {
                         <div className="flex items-center space-x-4">
                             {user?.isAuthenticated ? (<button className="text-gray-700 hover:text-purple-600">
                                 <User className="h-6 w-6" />
-                            </button>) : (<><button className="text-gray-700 hover:text-purple-600 font-medium">
-                                Login
-                            </button>
-                                <button className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
-                                    Sign up
-                                </button></>)}
+                            </button>) : (<Link to="signup" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
+                                SignUp/Login
+                            </Link>)}
                         </div>
                     </div>
                 </div>
