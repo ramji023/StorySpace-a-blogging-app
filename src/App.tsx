@@ -5,6 +5,7 @@ import AccountDetails from "./pages/AccountDetails"
 import WriteStory from "./pages/WriteStory"
 import WatchStory from "./pages/WatchStory"
 import SignUp from "./pages/auth/Signup"
+import Loading from "./components/loading"
 import { AuthProvider } from "./context/auth/AuthContext"
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
               <Route path="write-story" element={<WriteStory />} />
               <Route path="watch-story" element={<WatchStory />} />
               <Route path="signup" element={<SignUp />} />
+              <Route path="loading" element={<Loading text="wait for some seconds.."/>} />
             </Route>
           </Routes>
         </Router>
