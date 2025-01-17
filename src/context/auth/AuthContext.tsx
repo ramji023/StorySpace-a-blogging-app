@@ -1,4 +1,9 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { useFetchData } from "../../customHooks/useFetchData";
+
+interface CurrentUserResponse {
+    username: string,
+}
 
 // first create the context
 interface User {
@@ -23,6 +28,22 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
         isAuthenticated: false,
         username: '',
     })
+
+    // fetch current user data
+    const { data, success } = useFetchData<CurrentUserResponse>("/api/v1/users/current-user");
+    useEffect(() => {
+        if (data && success) {
+            // console.log(typeof data);
+            console.log("get current user data : ", data);
+            setUser({
+                isAuthenticated: success,
+                username: data.username,
+            })
+
+        }
+    }, [data, success])
+
+
 
     function login(): void {
 

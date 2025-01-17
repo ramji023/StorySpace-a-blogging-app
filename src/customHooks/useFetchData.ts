@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export const useFetchData = (baseURL: string) => {
-    const [data, setData] = useState<object | null>(null);
+export const useFetchData = <T>(baseURL: string) => {
+    const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false);
@@ -12,10 +12,12 @@ export const useFetchData = (baseURL: string) => {
             setError(null);
             const response = await axios.get(baseURL);
             if (response && response.data) {
-                setData(response.data)
+                // console.log(typeof response.data);
+                setData(response.data.data)
                 setSuccess(true);
             }
         } catch (err: any) {
+            console.log(err);
             setSuccess(false);
             if (err.response) {
                 setError(err.response.data.message); // Handle error response
