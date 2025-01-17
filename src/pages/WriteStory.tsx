@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Quill CSS
+import "react-quill/dist/quill.snow.css";
 import { Save } from "lucide-react";
+import { processAndUploadImages } from "../utils/uploadFilesandReplace";
+
 
 // You can customize the Quill toolbar for additional options
 const toolbarOptions = [
@@ -24,14 +26,15 @@ const WriteStory = () => {
     const [content, setContent] = useState("");
 
     // Handle Save button click
-    const handleSave = () => {
+    const handleSave = async() => {
+        const updatedContent = await processAndUploadImages(content);
         console.log("Title:", title);
-        console.log("Content:", content);
+        console.log("Content:", updatedContent);
     };
 
     // Configuration for Quill editor
     const modules = {
-        toolbar:toolbarOptions
+        toolbar: toolbarOptions
     };
 
 
@@ -63,12 +66,12 @@ const WriteStory = () => {
 
             {/* Save Button */}
             <button
-  onClick={handleSave}
-  className="mx-auto mt-6 bg-purple-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-purple-800 transition-colors shadow-lg"
->
-  <Save className="h-5 w-5" />
-  <span>Save Draft</span>
-</button>
+                onClick={handleSave}
+                className="mx-auto mt-6 bg-purple-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-purple-800 transition-colors shadow-lg"
+            >
+                <Save className="h-5 w-5" />
+                <span>Save Draft</span>
+            </button>
 
         </div>
     );

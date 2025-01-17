@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/url-gen": "^1.21.0",
     "axios": "^1.7.9",
+    "cloudinary": "^2.5.1",
     "dompurify": "^3.2.3",
     "jodit-react": "^4.1.2",
     "lucide-react": "^0.469.0",
