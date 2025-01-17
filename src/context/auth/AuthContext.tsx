@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useFetchData } from "../../customHooks/useFetchData";
+import Loading from "../../components/loading";
 
 interface CurrentUserResponse {
     username: string,
@@ -30,7 +31,8 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     })
 
     // fetch current user data
-    const { data, success } = useFetchData<CurrentUserResponse>("/api/v1/users/current-user");
+    const { data, success, isLoading } = useFetchData<CurrentUserResponse>("/api/v1/users/current-user");
+    // console.log(isLoading);
     useEffect(() => {
         if (data && success) {
             // console.log(typeof data);
@@ -50,18 +52,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     }
     return (
         <AuthContext.Provider value={{ user, login, setUser }}>
-            {children}
+            {isLoading ? <Loading text="welcome to StorySpace"/> : children}
         </AuthContext.Provider>
     )
 }
-
-
-
-// // Safe useContext hook for consuming context
-// export const useAuth = ():authContextType  => {
-//     const context = useContext(AuthContext);
-//     if (!context) {
-//       throw new Error("useAuth must be used within an AuthProvider");
-//     }
-//     return context;
-//   };

@@ -10,6 +10,7 @@ export const useFetchData = <T>(baseURL: string) => {
         try {
             setIsLoading(true);
             setError(null);
+            // await new Promise((resolve) => setTimeout(resolve, 10000));
             const response = await axios.get(baseURL);
             if (response && response.data) {
                 // console.log(typeof response.data);

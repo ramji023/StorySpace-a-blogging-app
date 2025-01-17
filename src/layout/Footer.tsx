@@ -1,6 +1,7 @@
 import { Github, Twitter, Linkedin, Heart } from 'lucide-react';
 
 const Footer = () => {
+    console.log("footer component mounts....")  // footer component called
     return (
         <>
             <footer className="bg-white border-t border-gray-200 mt-auto">

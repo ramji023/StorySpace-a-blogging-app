@@ -3,6 +3,7 @@ import { Search, PenSquare, User } from 'lucide-react';
 import { AuthContext } from '../context/auth/AuthContext';
 import { useContext } from 'react';
 const Navbar = () => {
+    console.log("navbar component renders...") // call navbar component
     const { user } = useContext(AuthContext);
     return (
         <>
