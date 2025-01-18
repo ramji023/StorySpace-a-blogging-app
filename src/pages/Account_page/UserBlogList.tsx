@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useFetchData } from "../../customHooks/useFetchData";
 import YourBlogs from "../../components/Account_details/YourBlogs";
 
 const sampleUserBlogs = [
@@ -20,7 +22,20 @@ const sampleUserBlogs = [
         imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=500&h=300&fit=crop",
     },
 ]
+interface storiesType {
+    title: string,
+    snippet: string,
+    image: string,
+}
 const UserBlogList = () => {
+    const { data, error, success } = useFetchData<storiesType[]>("/api/v1/story/getAllRecipe")
+    const [stories, setStories] = useState<storiesType[]>([]);
+    useEffect(() => {
+        if (data && success) {
+            console.log("all stories fetched for current user", data);
+            setStories(data);
+        }
+    }, [data, success])
     return (
         <>
             <div className="space-y-4">
