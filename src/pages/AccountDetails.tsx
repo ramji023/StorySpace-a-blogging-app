@@ -1,10 +1,6 @@
-import { Routes,Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AccountHeader from "../components/Account_details/AccountHeader"
 import AccountNav from "../components/Account_details/AccountNav"
-import UserBlogList from "./Account_page/UserBlogList";
-import SavedBlogs from "./Account_page/SavedBlogs";
-import About from "./Account_page/About";
-import Growth from "./Account_page/Growth";
 const AccountDetails = () => {
     const user = {
         name: 'Sarah Wilson',
@@ -18,13 +14,7 @@ const AccountDetails = () => {
                     {/* Left Column - Navigation and Content */}
                     <div className="flex-1">
                         <AccountNav />
-                        <Routes>
-                            <Route path="/" element={<UserBlogList />} />
-                            <Route path="/blogs" element={<UserBlogList />} />
-                            <Route path="/saved" element={<SavedBlogs />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/growth" element={<Growth />} />
-                        </Routes>
+                        <Outlet/>
                     </div>
 
                     {/* Right Column - Profile Info */}

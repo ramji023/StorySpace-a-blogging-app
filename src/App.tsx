@@ -5,9 +5,12 @@ import AccountDetails from "./pages/AccountDetails"
 import WriteStory from "./pages/WriteStory"
 import WatchStory from "./pages/WatchStory"
 import SignUp from "./pages/auth/Signup"
-// import Loading from "./components/loading"
 import { AuthProvider } from "./context/auth/AuthContext"
 import Error from "./components/Error"
+import UserBlogList from "./pages/Account_page/UserBlogList"
+import SavedBlogs from "./pages/Account_page/SavedBlogs"
+import About from "./pages/Account_page/About"
+import Growth from "./pages/Account_page/Growth"
 const App = () => {
   return (
     <>
@@ -16,11 +19,17 @@ const App = () => {
           <Routes>
             <Route path="/" element={<RootLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="profile" element={<AccountDetails />} />
+              <Route path="yourProfile" element={<AccountDetails />}>
+                <Route index element={<UserBlogList />} />
+                <Route path="blogs" element={<UserBlogList/>}/>
+                <Route path="saved" element={<SavedBlogs />} />
+                <Route path="about" element={<About />} />
+                <Route path="growth" element={<Growth />} />
+              </Route>
               <Route path="write-story" element={<WriteStory />} />
               <Route path="watch-story" element={<WatchStory />} />
               <Route path="signup" element={<SignUp />} />
-           <Route path="error" element={<Error/>}/>
+              <Route path="error" element={<Error />} />
             </Route>
           </Routes>
         </Router>

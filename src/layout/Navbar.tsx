@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Search, PenSquare, User } from 'lucide-react';
 import { AuthContext } from '../context/auth/AuthContext';
-import { useContext } from 'react';
+import { useContext,memo } from 'react';
 const Navbar = () => {
     console.log("navbar component renders...") // call navbar component
     const { user } = useContext(AuthContext);
@@ -36,9 +36,9 @@ const Navbar = () => {
                         </Link>
 
                         <div className="flex items-center space-x-4">
-                            {user?.isAuthenticated ? (<button className="text-gray-700 hover:text-purple-600">
+                            {user?.isAuthenticated ? (<Link to="yourProfile" className="text-gray-700 hover:text-purple-600">
                                 <User className="h-6 w-6" />
-                            </button>) : (<Link to="signup" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
+                            </Link>) : (<Link to="signup" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
                                 SignUp/Login
                             </Link>)}
                         </div>
@@ -49,4 +49,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export default memo(Navbar); 

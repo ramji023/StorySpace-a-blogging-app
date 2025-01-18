@@ -8,10 +8,10 @@ interface NavItem {
 }
 
 const navItems: Array<NavItem> = [
-    { label: 'My Blogs', icon: FileText, path: '/profile' },
-    { label: 'Saved', icon: BookMarked, path: '/profile/saved' },
-    { label: 'About', icon: User, path: '/profile/about' },
-    { label: 'Growth', icon: TrendingUp, path: '/profile/growth' },
+    { label: 'My Blogs', icon: FileText, path:'blogs' },
+    { label: 'Saved', icon: BookMarked, path: 'saved' },
+    { label: 'About', icon: User, path: 'about' },
+    { label: 'Growth', icon: TrendingUp, path: 'growth' },
 ];
 const AccountNav = () => {
     return (
@@ -21,7 +21,7 @@ const AccountNav = () => {
                     {navItems.map((item) => (
                         <li key={item.path} className="flex-1">
                             <NavLink
-                                to={item.path}
+                                to={item.path} 
                                 className={({ isActive }) =>
                                     `flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-colors ${isActive
                                         ? 'bg-purple-50 text-purple-600'
