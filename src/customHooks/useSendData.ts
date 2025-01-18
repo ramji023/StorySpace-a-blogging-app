@@ -13,7 +13,7 @@ export const useSendData = () => {
             setError(null);
             const response = await axios.post(baseURL, data);
             if (response && response.data) {
-                setData(response.data);
+                setData(response.data.data);
                 setSuccess(true);
             }
         } catch (error: any) {

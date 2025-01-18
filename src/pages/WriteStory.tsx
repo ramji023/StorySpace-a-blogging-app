@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Save } from "lucide-react";
 import { processAndUploadImages } from "../utils/uploadFilesandReplace";
-
+import { useSendData } from "../customHooks/useSendData";
+import Loading from "../components/loading";
 
 // You can customize the Quill toolbar for additional options
 const toolbarOptions = [
@@ -24,20 +25,40 @@ const WriteStory = () => {
     const quillRef = useRef(null); // Reference to the Quill instance
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    //send data to server through useSendData custom hook
+    const { data, success, error, sendData } = useSendData();
 
     // Handle Save button click
-    const handleSave = async() => {
+    const handleSave = async () => {
+        setLoading(true);
         const updatedContent = await processAndUploadImages(content);
         console.log("Title:", title);
         console.log("Content:", updatedContent);
+        sendData("/api/v1/story/save-newStories", { title, content: updatedContent })
     };
+
+    useEffect(() => {
+        if (data && success) {
+            setLoading(false);
+            console.log("get response from server : ", data)
+        }
+    }, [data, success])
+
 
     // Configuration for Quill editor
     const modules = {
         toolbar: toolbarOptions
     };
 
-
+    //is loading is true then show loading state
+    // console.log("loading state start : ", loading);
+    if (loading) {
+        return (
+            <Loading text="we are processing your story. Please wait for a while..." />
+        )
+    }
     return (
         <div className="max-w-7xl mx-auto p-6 space-y-6">
             {/* Title Input */}
