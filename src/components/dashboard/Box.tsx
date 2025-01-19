@@ -1,5 +1,5 @@
 import { Heart, MessageCircle, Bookmark, Share2 } from "lucide-react"
-
+import { Link } from "react-router-dom"
 interface Box {
     id: string,
     title: string,
@@ -17,9 +17,9 @@ const Box = ({ id,title, description, author, likeCount, commentCount, createdAt
             <div className="bg-white rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
                 <div className="flex gap-4">
                     <div className="flex-1">
-                        <h2 className="text-xl font-semibold mb-2 text-gray-900 hover:text-purple-600 cursor-pointer">
+                        <Link to={`watchStory/${id}`} className="text-xl font-semibold mb-2 text-gray-900 hover:text-purple-600 cursor-pointer">
                             {title}
-                        </h2>
+                        </Link>
                         <p className="text-gray-600 mb-4 line-clamp-2">{description}</p>
                         <div className="flex items-center justify-between">
                             <span className="text-sm text-gray-500">{author}</span>

@@ -27,7 +27,7 @@ const App = () => {
                 <Route path="growth" element={<Growth />} />
               </Route>
               <Route path="write-story" element={<WriteStory />} />
-              <Route path="watch-story" element={<WatchStory />} />
+              <Route path="watchStory/:storyId" element={<WatchStory />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="error" element={<Error />} />
             </Route>
