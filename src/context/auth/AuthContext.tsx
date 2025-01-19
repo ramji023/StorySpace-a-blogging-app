@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     useEffect(() => {
         // Prevent fetching user data after redirecting to /signup
         if (window.location.pathname === '/signup') {
-            setIsRedirecting(true); // User is on the signup page, so don't attempt to fetch current user
+            setIsRedirecting(true); 
         }
         if (data && success && !isRedirecting) {
             // console.log(typeof data);

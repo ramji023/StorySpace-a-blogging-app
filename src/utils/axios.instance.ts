@@ -9,11 +9,11 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         config.withCredentials = true; // Include cookies in requests
-        console.log("request config : ", config)
+        // console.log("request config : ", config)
         return config;
     },
     (error) => {
-        console.log("request error : ", error)
+        // console.log("request error : ", error)
         return Promise.reject(error);
     }
 );

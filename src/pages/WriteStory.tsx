@@ -24,6 +24,7 @@ const toolbarOptions = [
 const WriteStory = () => {
     const quillRef = useRef(null); // Reference to the Quill instance
     const [title, setTitle] = useState("");
+    const [description,setDescription] = useState("")
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -36,7 +37,7 @@ const WriteStory = () => {
         const updatedContent = await processAndUploadImages(content);
         console.log("Title:", title);
         console.log("Content:", updatedContent);
-        sendData("/api/v1/story/save-newStories", { title, content: updatedContent })
+        sendData("/api/v1/story/save-newStories", { title,description, content: updatedContent })
     };
 
     useEffect(() => {
@@ -68,6 +69,13 @@ const WriteStory = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter your title..."
                 className="w-full text-3xl font-bold focus:outline-none border-b-2 border-gray-300 pb-2"
+            />
+            <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter brief description about your story..."
+                className="w-full text-2xl focus:outline-none border-b-2 border-gray-300 pb-2"
             />
 
             {/* Quill Editor */}
