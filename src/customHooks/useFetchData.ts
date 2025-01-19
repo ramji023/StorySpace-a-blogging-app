@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import axiosInstance from "../utils/axios.instance";
 export const useFetchData = <T>(baseURL: string) => {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState(false)
@@ -11,7 +11,7 @@ export const useFetchData = <T>(baseURL: string) => {
             setIsLoading(true);
             setError(null);
             // await new Promise((resolve) => setTimeout(resolve, 10000));
-            const response = await axios.get(baseURL);
+            const response = await axiosInstance.get(baseURL);
             if (response && response.data) {
                 // console.log(typeof response.data);
                 setData(response.data.data)

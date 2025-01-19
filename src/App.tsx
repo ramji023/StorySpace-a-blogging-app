@@ -31,6 +31,7 @@ const App = () => {
               <Route path="signup" element={<SignUp />} />
               <Route path="error" element={<Error />} />
             </Route>
+            
           </Routes>
         </Router>
       </AuthProvider>

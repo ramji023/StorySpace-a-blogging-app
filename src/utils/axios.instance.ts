@@ -9,41 +9,35 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         config.withCredentials = true; // Include cookies in requests
+        console.log("request config : ", config)
         return config;
     },
     (error) => {
+        console.log("request error : ", error)
         return Promise.reject(error);
     }
 );
 
-// Response Interceptor
+//Response interceptor
 axiosInstance.interceptors.response.use(
-    (response) => {
-        // simply return the response if no error occurs
-        return response;
-    },
+    (response) => response,
     async (error) => {
-        const originalRequest = error.config; // remember the original request
-        console.log(error);
-
-        // unauthorized user error
-        if (error.response && error.response.status === 401 && !originalRequest?._retry) {
+        const originalRequest = error.config;
+        if (error.response?.status === 401 && originalRequest.url === "/api/v1/users/current-user" && !originalRequest._retry) {
             originalRequest._retry = true;
-
             try {
-                // send post request to refresh the token
+                console.log("send request to refresh the token")
                 await axios.post("/api/v1/users/refreshed-token", {}, { withCredentials: true });
-
-                // retry the original request with the refreshed token
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                console.error("Token refresh failed, redirecting to login:", refreshError);
-                // redirect to signup or login page
-                window.location.href = "/signup";
+                console.error('Token refresh failed, redirecting to login');
+                 // Avoid redirect loop
+                 if (window.location.pathname !== '/signup') {
+                    window.location.href = '/signup'; // Only redirect once
+                }
+                return Promise.reject(refreshError); // Important: Reject the promise after redirect
             }
         }
-
-        // reject the promise with the error
         return Promise.reject(error);
     }
 );

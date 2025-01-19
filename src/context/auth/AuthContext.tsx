@@ -29,12 +29,17 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
         isAuthenticated: false,
         username: '',
     })
+    const [isRedirecting, setIsRedirecting] = useState(false); 
 
     // fetch current user data
     const { data, success, isLoading } = useFetchData<CurrentUserResponse>("/api/v1/users/current-user");
     // console.log(isLoading);
     useEffect(() => {
-        if (data && success) {
+        // Prevent fetching user data after redirecting to /signup
+        if (window.location.pathname === '/signup') {
+            setIsRedirecting(true); // User is on the signup page, so don't attempt to fetch current user
+        }
+        if (data && success && !isRedirecting) {
             // console.log(typeof data);
             console.log("get current user data : ", data);
             setUser({
@@ -43,7 +48,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
             })
 
         }
-    }, [data, success])
+    }, [data, success,isRedirecting])
 
 
 
@@ -52,7 +57,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     }
     return (
         <AuthContext.Provider value={{ user, login, setUser }}>
-            {isLoading ? <Loading text="welcome to StorySpace"/> : children}
+            {isLoading && isRedirecting? <Loading text="welcome to StorySpace"/> : children}
         </AuthContext.Provider>
     )
 }
