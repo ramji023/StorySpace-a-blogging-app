@@ -37,7 +37,7 @@ const HtmlParser: React.FC<Props> = ({ htmlContent }) => {
       // List handling
       if (domNode.name === 'ul') {
         return (
-          <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+          <ul style={{ listStyleType: 'disc', paddingLeft: '40px', fontSize: '22px', marginBottom: '16px' }}>
             {domNode.children?.map((child: any, index: number) => {
               if (child.name === 'li') {
                 return (
@@ -54,7 +54,7 @@ const HtmlParser: React.FC<Props> = ({ htmlContent }) => {
 
       if (domNode.name === 'ol') {
         return (
-          <ol style={{ listStyleType: 'decimal', paddingLeft: '20px' }}>
+          <ol style={{ listStyleType: 'decimal', paddingLeft: '40px', fontSize: '22px', marginBottom: '16px' }}>
             {domNode.children?.map((child: any, index: number) => {
               if (child.name === 'li') {
                 return (
@@ -73,7 +73,20 @@ const HtmlParser: React.FC<Props> = ({ htmlContent }) => {
 
   try {
     const parsedContent = parse(htmlContent, options);
-    return <>{parsedContent}</>;
+    return (
+      <div
+        style={{
+          fontSize: '22px', // Default font size for all text
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'", // Font style for readability
+          lineHeight: '1.6', // Better line spacing
+          color: '#333', // Default text color
+          letterSpacing: '0.5px', // Slightly spaced letters for better readability
+          fontWeight: '400', // Normal font weight (can be adjusted to bold or lighter as needed)
+        }}
+      >
+        {parsedContent}
+      </div>
+    );
   } catch (error) {
     console.error('Error parsing HTML:', error);
     return <div>Error parsing content.</div>;

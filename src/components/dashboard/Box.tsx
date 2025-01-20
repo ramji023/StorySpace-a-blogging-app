@@ -14,13 +14,13 @@ interface Box {
 const Box = ({ id,title, description, author, likeCount, commentCount, createdAt, image }: Box) => {
     return (
         <>
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-4 hover:shadow-lg transition-shadow">
                 <div className="flex gap-4">
                     <div className="flex-1">
-                        <Link to={`watchStory/${id}`} className="text-xl font-semibold mb-2 text-gray-900 hover:text-purple-600 cursor-pointer">
+                        <Link to={`watchStory/${id}`} className="text-2xl font-semibold mb-2 text-gray-900 hover:text-purple-600 cursor-pointer">
                             {title}
                         </Link>
-                        <p className="text-gray-600 mb-4 line-clamp-2">{description}</p>
+                        <p className="text-gray-700 text-xl mb-4 line-clamp-2">{description}</p>
                         <div className="flex items-center justify-between">
                             <span className="text-sm text-gray-500">{author}</span>
                             <span className="text-sm text-gray-500">{createdAt}</span>

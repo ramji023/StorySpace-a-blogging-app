@@ -48,8 +48,25 @@ const WatchStory = () => {
         </div>
 
         {/* Blog Title */}
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">{storyData?.title}</h1>
-
+        <h1
+          className=" font-bold text-gray-900 mb-6"
+          style={{
+            fontSize: '42px',
+            fontFamily: '"Sohne", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          }}
+        >
+          {storyData?.title}
+        </h1>
+        {/* Blog description */}
+        <h1
+          className="text-black mb-6"
+          style={{
+            fontSize: '30px',
+            fontFamily: '"Sohne", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          }}
+        >
+          {storyData?.description}
+        </h1>
         {/* Blog Content */}
         <div className="prose prose-lg max-w-none mb-8">
           <HtmlParser htmlContent={storyData.content} />
