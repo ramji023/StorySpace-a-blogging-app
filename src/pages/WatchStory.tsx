@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Heart, MessageCircle, Bookmark, Share2 } from 'lucide-react';
 import HtmlParser from '../utils/contentParser';
 import { useParams } from 'react-router-dom';
 import { useFetchData } from '../customHooks/useFetchData';
+import { useSendData } from '../customHooks/useSendData';
 import Error from "../components/Error";
 import Loading from '../components/loading';
 
@@ -26,9 +27,41 @@ const WatchStory = () => {
       setStoryData(data);
     }
   }, [data, success])
+
+  // handle like , comment and save
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [comment, setComment] = useState("");
+  console.log("liked status is : ", isLiked)
+  const { data: setData, isLoading: loadingStatus, success: setSuccess, error: setError, sendData } = useSendData();
 
+  // handle like function when user handle like action
+  async function handleLikeOperation() {
+    setIsLiked((prevStatus) => !prevStatus);
+    const status = isLiked ? "dislike" : "like"
+    const baseURl = `/api/v1/likes/like/${storyId}?action=${status}`
+    console.log("base url is : ", baseURl)
+    try {
+      await sendData(baseURl, {})
+    } catch (error) {
+      setIsLiked((prevStatus) => !prevStatus);
+    }
+  }
+
+  // handle save function when user save a story
+  async function handleSaveOperation() {
+    const prevStatus = isSaved;
+    setIsSaved(!prevStatus);
+    const status = isSaved ? "unsaved" : "save";
+    const baseURL = `/api/v1/saveStories/save-stories/${storyId}?action=${status}`
+    console.log(baseURL);
+    try {
+      await sendData(baseURL, {})
+    } catch (error) {
+      console.log("the error is : ", error);
+      setIsSaved(prevStatus);
+    }
+  }
   return (
     <>
       {error && <Error />}
@@ -76,7 +109,7 @@ const WatchStory = () => {
         <div className="flex items-center justify-between border-t border-b border-gray-200 py-4 my-8">
           <div className="flex items-center space-x-6">
             <button
-              onClick={() => setIsLiked(!isLiked)}
+              onClick={() => { handleLikeOperation() }}
               className={`flex items-center space-x-2 ${isLiked ? 'text-purple-600' : 'text-gray-600'
                 } hover:text-purple-600 transition-colors`}
             >
@@ -88,7 +121,7 @@ const WatchStory = () => {
               <span>{storyData?.commentCount}</span>
             </button>
             <button
-              onClick={() => setIsSaved(!isSaved)}
+              onClick={() => { handleSaveOperation() }}
               className={`flex items-center space-x-2 ${isSaved ? 'text-purple-600' : 'text-gray-600'
                 } hover:text-purple-600 transition-colors`}
             >

@@ -29,6 +29,7 @@ export const useSendData = () => {
                 console.log(error.message);
                 setError('An unexpected error occurred.');
             }
+            throw(error);
         } finally {
             setIsLoading(false);
         }
