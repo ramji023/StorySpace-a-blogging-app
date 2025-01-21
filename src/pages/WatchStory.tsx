@@ -6,6 +6,7 @@ import { useFetchData } from '../customHooks/useFetchData';
 import { useSendData } from '../customHooks/useSendData';
 import Error from "../components/Error";
 import Loading from '../components/loading';
+import CommentBox from '../components/CommentBox';
 
 interface storyData {
   _id: string;
@@ -62,6 +63,28 @@ const WatchStory = () => {
       setIsSaved(prevStatus);
     }
   }
+
+  //handle comment operations when user write some comments
+
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      username: "Jane Doe",
+      profileImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      text: "This is an amazing story!",
+    },
+    {
+      id: 2,
+      username: "Alice Smith",
+      profileImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=600&fit=crop",
+      text: "Great job! I loved it.",
+    },
+  ]);
+
+
+
+
+
   return (
     <>
       {error && <Error />}
@@ -133,26 +156,9 @@ const WatchStory = () => {
             <Share2 className="h-6 w-6" />
           </button>
         </div>
-
-        {/* Comments Section */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Comments</h2>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <textarea
-              placeholder="Write a comment..."
-              className="w-full p-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              rows={4}
-            />
-            <div className="mt-4 flex justify-end">
-              <button className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-                Post Comment
-              </button>
-            </div>
-          </div>
-        </div>
+        <CommentBox comments={comments} storyId={storyId || ""} />
       </div>)}
     </>
-
   );
 };
 
