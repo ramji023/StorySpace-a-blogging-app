@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-
+// import axios from "axios";
+import axiosInstance from "../utils/axios.instance";
 export const useSendData = () => {
     const [data, setData] = useState<object | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -11,7 +11,7 @@ export const useSendData = () => {
         try {
             setIsLoading(true)
             setError(null);
-            const response = await axios.post(baseURL, data);
+            const response = await axiosInstance.post(baseURL, data);
             if (response && response.data) {
                 setData(response.data.data);
                 setSuccess(true);
@@ -29,11 +29,10 @@ export const useSendData = () => {
                 console.log(error.message);
                 setError('An unexpected error occurred.');
             }
-            throw(error);
+            throw (error);
         } finally {
             setIsLoading(false);
         }
     }
-
     return { data, isLoading, success, error, sendData }
 }
