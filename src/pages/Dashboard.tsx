@@ -14,6 +14,7 @@ interface storiesType {
     commentCount: number,
     createdAt: string,
     author: string,
+    profileImage: string,
 }
 const Dashboard = () => {
     const { data, error, success } = useFetchData<storiesType[]>("/api/v1/story/getAllStories")
