@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Heart, MessageCircle, Bookmark, Share2 } from 'lucide-react';
 import HtmlParser from '../utils/contentParser';
 import { useParams } from 'react-router-dom';
@@ -17,6 +17,8 @@ interface storyData {
   likeCount: number;
   createdAt: string;
   author: string;
+  bio: string;
+  profileImage: string;
 }
 const WatchStory = () => {
   const { storyId } = useParams();  // take storyId from url
@@ -32,7 +34,6 @@ const WatchStory = () => {
   // handle like , comment and save
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [comment, setComment] = useState("");
   console.log("liked status is : ", isLiked)
   const { data: setData, isLoading: loadingStatus, success: setSuccess, error: setError, sendData } = useSendData();
 
@@ -93,19 +94,34 @@ const WatchStory = () => {
         {/* Author Info */}
         <div className="flex items-center space-x-4 mb-8">
           <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
+            src={storyData?.profileImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"}
             alt={storyData?.author}
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-20 h-20 rounded-full object-cover"
           />
           <div>
-            <h3 className="font-medium text-gray-900">{storyData?.author}</h3>
-            <p className="text-sm text-gray-500">{storyData?.createdAt}</p>
+            <div className="flex items-center space-x-2">
+              <h2 className="text-lg font-medium text-gray-900">{storyData?.author}</h2>
+              <button className="px-4 py-1 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition-colors text-sm">
+                Follow
+              </button>
+            </div>
+            <p className="text-sm text-gray-500">{storyData?.bio}</p>
+            <p
+              className="text-sm text-gray-500"
+              style={{
+                fontFamily: "sohne, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                fontSize: "14px",
+              }}
+            >
+              {storyData?.createdAt}
+            </p>
           </div>
         </div>
 
+
         {/* Blog Title */}
         <h1
-          className=" font-bold text-gray-900 mb-6"
+          className=" font-bold text-gray-900 mb-6 "
           style={{
             fontSize: '42px',
             fontFamily: '"Sohne", "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -115,7 +131,7 @@ const WatchStory = () => {
         </h1>
         {/* Blog description */}
         <h1
-          className="text-black mb-6"
+          className="text-gray-700 mb-6 border-t border-b border-gray-200 "
           style={{
             fontSize: '30px',
             fontFamily: '"Sohne", "Helvetica Neue", Helvetica, Arial, sans-serif',
