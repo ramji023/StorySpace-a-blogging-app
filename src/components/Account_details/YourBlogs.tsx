@@ -1,4 +1,5 @@
 import { Heart, MessageCircle, Bookmark, MoreVertical } from "lucide-react";
+import { Link } from "react-router-dom";
 interface BlogTypes {
     id: string,
     title: string,
@@ -9,15 +10,15 @@ interface BlogTypes {
     createdAt: string,
 }
 
-const YourBlogs = ({ id,title, description, createdAt, likeCount, commentCount, image }: BlogTypes) => {
+const YourBlogs = ({ id, title, description, createdAt, likeCount, commentCount, image }: BlogTypes) => {
     return (
         <>
             <div className="bg-white rounded-lg shadow-sm p-6 mb-4">
                 <div className="flex justify-between items-start">
                     <div className="flex-1 pr-4">
-                        <h3 className="text-xl font-semibold text-gray-900 hover:text-purple-600 cursor-pointer">
+                        <Link to={`/watchStory/${id}`} className="text-2xl font-semibold text-gray-900 hover:text-purple-600 cursor-pointer">
                             {title}
-                        </h3>
+                        </Link>
                         <p className="text-gray-600 mt-2 line-clamp-2">{description}</p>
                         <div className="mt-4 flex items-center justify-between">
                             <span className="text-sm text-gray-500">{createdAt}</span>

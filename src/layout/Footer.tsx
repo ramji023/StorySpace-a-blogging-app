@@ -1,5 +1,5 @@
 import { Github, Twitter, Linkedin, Heart } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
     console.log("footer component mounts....")  // footer component called
     return (
@@ -9,9 +9,12 @@ const Footer = () => {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {/* Brand Section */}
                         <div className="space-y-4">
-                            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-                                StorySpace
-                            </span>
+                            <Link to="/">
+                                <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+                                    StorySpace
+                                </span>
+                            </Link>
+
                             <p className="text-gray-600">
                                 Where stories come to life. Share your voice with the world.
                             </p>

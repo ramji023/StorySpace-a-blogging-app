@@ -45,6 +45,7 @@ interface authProviderProps {
     children: ReactNode,
 }
 export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
+    const [isUserLoading, setIsUserLoading] = useState(true);
     const [user, setUser] = useState<User>({
         isAuthenticated: false,
         username: '',
@@ -60,7 +61,6 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
         }
     })
     const [isRedirecting, setIsRedirecting] = useState(false);
-
     // fetch current user data
     const { data, success, isLoading } = useFetchData<CurrentUserResponse>("/api/v1/users/current-user");
     // console.log(isLoading);
@@ -86,6 +86,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
                     twitter: data.socialLinks?.twitter,
                 }
             })
+            setIsUserLoading(false);
         }
     }, [data, success, isRedirecting])
 
@@ -96,7 +97,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({ children }) => {
     }
     return (
         <AuthContext.Provider value={{ user, login, setUser }}>
-            {isLoading && isRedirecting ? <Loading text="welcome to StorySpace" /> : children}
+            {isLoading || isUserLoading && isRedirecting ? <Loading text="welcome to StorySpace" /> : children}
         </AuthContext.Provider>
     )
 }

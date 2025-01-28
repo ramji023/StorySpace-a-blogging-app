@@ -1,19 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Search, PenSquare, User } from 'lucide-react';
 import { AuthContext } from '../context/auth/AuthContext';
-import { useContext,memo } from 'react';
+import { useContext, memo } from 'react';
 const Navbar = () => {
     console.log("navbar component renders...") // call navbar component
-    const { user } = useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("AuthContext must be used within an AuthProvider.")
+    }
+    const { user } = context;
     return (
         <>
             <nav className="bg-white shadow-md px-4 py-3 fixed w-full top-0 z-50">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     {/* Logo and Brand */}
                     <div className="flex items-center space-x-2">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-                            StorySpace
-                        </span>
+                       <Link to="/">
+                       <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+                                StorySpace
+                            </span>
+                       </Link>           
                     </div>
 
                     {/* Search Bar */}
